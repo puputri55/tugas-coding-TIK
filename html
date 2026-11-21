@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Tebak Angka</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      font-size: 16px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #0056b3; }
+    #pesan { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Tebak Angka (1 - 100)</h2>
+  <p>Komputer sudah memilih satu angka rahasia.</p>
+  <input type="number" id="tebakan" placeholder="Masukkan angka..." min="1" max="100">
+  <br>
+  <button onclick="cekTebakan()">Tebak!</button>
+  <p id="pesan"></p>
+</div>
+
+<script>
+  // Mengacak angka dari 1 sampai 100
+  let angkaRahasia = Math.floor(Math.random() * 100) + 1;
+  let percobaan = 0;
+
+  function cekTebakan() {
+    const input = document.getElementById("tebakan").value;
+    const pesan = document.getElementById("pesan");
+    const angkaUser = Number(input);
+
+    if (!input || angkaUser < 1 || angkaUser > 100) {
+      pesan.style.color = "orange";
+      pesan.textContent = "Masukkan angka valid antara 1 - 100!";
+      return;
+    }
+
+    percobaan++;
+
+    if (angkaUser === angkaRahasia) {
+      pesan.style.color = "green";
+      pesan.textContent = `Benar! Angkanya ${angkaRahasia}. Kamu butuh ${percobaan} kali tebakan.`;
+    } else if (angkaUser < angkaRahasia) {
+      pesan.style.color = "red";
+      pesan.textContent = "Terlalu kecil! Coba angka lebih besar.";
+    } else {
+      pesan.style.color = "red";
+      pesan.textContent = "Terlalu besar! Coba angka lebih kecil.";
+    }
+  }
+</script>
+
+</body>
+</html>
